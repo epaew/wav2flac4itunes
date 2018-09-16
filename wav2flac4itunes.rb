@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-# -*- coding:UTF-8 -*-
-
 require 'plist'
 require 'taglib'
 require 'ruby-progressbar'
@@ -11,27 +9,26 @@ require 'fileutils'
 require 'shellwords'
 
 class Wav2Flac4ITunes
-
   ITUNES_DIR = '/media/sf_music/iTunes'.freeze
   FLAC_DIR = '/media/sf_music/flac'.freeze
   XML_PATH = File.join(ITUNES_DIR, '/iTunes Music Library.xml').freeze
 
   TAG_MAP = {
-   title:  "Name",
-   album:  "Album",
-   track:  "Track Number",
-   artist: "Artist",
-   genre:  "Genre",
-   year:   "Year",
+    title:  'Name',
+    album:  'Album',
+    track:  'Track Number',
+    artist: 'Artist',
+    genre:  'Genre',
+    year:   'Year'
   }.freeze
 
   def initialize
     Encoding.default_external = 'UTF-8'
-    @tracks = Plist.parse_xml(XML_PATH)["Tracks"].values
+    @tracks = Plist.parse_xml(XML_PATH)['Tracks'].values
     @progress = ProgressBar.create(
       starting_at: 0,
       total: @tracks.size,
-      format: "%t: |%B| %c/%u",
+      format: '%t: |%B| %c/%u',
       output: $stderr
     )
   end
@@ -71,21 +68,21 @@ class Wav2Flac4ITunes
       @progress.increment
 
       # CGI.unescape により + が半角スペースに変換されるのを回避
-      fname = CGI.unescape(track["Location"].gsub('+', '//plus//'))
-        .gsub('//plus//', '+').match(/.*\/iTunes\/(.*)/).to_a[1]
+      fname = CGI.unescape(track['Location'].gsub('+', '//plus//'))
+                 .gsub('//plus//', '+').match(/.*\/iTunes\/(.*)/).to_a[1]
 
-      next unless File.extname(fname) == ".wav"
+      next unless File.extname(fname) == '.wav'
 
       input = File.join(ITUNES_DIR, fname)
       output = File.join(
         FLAC_DIR,
-        unless track["Album Artist"].nil?
-          track["Album Artist"].strip.gsub(/[\\\/:*?\"<>\|]/, '_')
+        if track['Album Artist'].nil?
+          'Compilations'
         else
-          "Compilations"
+          track['Album Artist'].strip.gsub(/[\\\/:*?\"<>\|]/, '_')
         end,
-        track["Album"].strip.gsub(/[\\\/:*?\"<>\|]/, '_'),
-        "#{track["Track Number"]} #{track["Name"].strip}.flac"
+        track['Album'].strip.gsub(/[\\\/:*?\"<>\|]/, '_'),
+        "#{track['Track Number']} #{track['Name'].strip}.flac"
           .gsub(/[\\\/:*?\"<>\|]/, '_')
       )
 
