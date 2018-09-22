@@ -1,34 +1,26 @@
-# WAV2FLAC4iTunes
-ソフト名のままです。  
+# WAV2FLAC (for iTunes)
 iTunesで取り込んだwavファイルをflacに変換します。  
 その際、iTunesで保存されたメタ情報をflacファイルに埋め込みます。  
 
-# Requirement
-## 動作環境
-動作確認はUbuntu 16.04 on VirtualBox on Windows10 にて行っています。  
-私がMacBookを買ったらそれ用に修正する予定です。  
+## Requirement
+### 動作環境
+動作確認はUbuntu 18.04 on VirtualBox on Windows10 にて行っています。  
 
 ```
 $ uname -a
-Linux xubuntu1604 4.10.0-37-generic #41~16.04.1-Ubuntu SMP Fri Oct 6 22:42:59 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+Linux ubuntu1804 4.15.0-20-generic #21-Ubuntu SMP Tue Apr 24 06:16:15 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
 $ ruby -v
-ruby 2.3.1p112 (2016-04-26) [x86_64-linux-gnu]
+ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
+$ dpkg -l | grep libtag1-dev
+ii  libtag1-dev:amd64                     1.11.1+dfsg.1-0.2build2             amd64        audio meta-data library - development files
 ```
 
-## 必要なパッケージ
-* ruby
-* flac
-* libtag1-dev
-* gems
-  * plist
-  * taglib-ruby
-  * ruby-progressbar
-
-足りないの思い出したら追記します。
-
-# How to use
-`wav2flac4itunes.rb`ファイル内の`ITUNES_DIR` `FLAC_DIR`定数を利用する環境に合わせ修正してください。  
-あとは以下のとおりターミナルに入力すれば動きます。
+## How to use
+`config/local.yml`ファイル内の定数を利用する環境に合わせ修正してください。  
 ```
-$ ruby path/to/wav2flac4itunes.rb
+vim config/local.yml
+bin/wav_to_flac
 ```
+
+## License
+[MIT](LICENSE)

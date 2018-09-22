@@ -1,0 +1,4 @@
+---
+directories:
+  itunes_root: ~/Music/iTunes
+  output_root: ~/Music/flac

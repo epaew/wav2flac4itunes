@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
+gem 'deep_merge'
 gem 'plist'
 gem 'ruby-progressbar'
 gem 'taglib-ruby'

@@ -1,0 +1,4 @@
+---
+directories:
+  itunes_root: path/to/dir
+  output_root: path/to/dir
