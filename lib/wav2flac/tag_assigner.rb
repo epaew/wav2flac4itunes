@@ -11,15 +11,23 @@ module Wav2Flac
              genre:  'Genre',
              year:   'Year' }.freeze
 
-    def self.update_tag(output, track)
+    def self.update_tag(output, track_info)
       TagLib::FLAC::File.open(output) do |flac|
-        tag = flac.xiph_comment
-        TAGS.each { |k, v| tag.send("#{k}=", track[v]) }
+        tags = flac.xiph_comment
+        update_results = TAGS.map do |k, v|
+          next if tags.public_send(k) == track_info[v]
 
-        if flac.save
-          puts "Updating tag of #{output} is completed."
-        else
-          puts "Failed to update tag of #{output} ."
+          # tags.public_send("#{k}=") always return nil.
+          tags.public_send("#{k}=", track_info[v])
+          true
+        end
+
+        if update_results.any?
+          if flac.save
+            puts "Updating tag of #{output} is completed."
+          else
+            puts "Failed to update tag of #{output} ."
+          end
         end
       end
     end
