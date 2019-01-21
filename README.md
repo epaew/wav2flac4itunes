@@ -18,8 +18,8 @@ ii  libtag1-dev:amd64                     1.11.1+dfsg.1-0.2build2             am
 ## How to use
 `config/local.yml`ファイル内の定数を利用する環境に合わせ修正してください。  
 ```
-vim config/local.yml
-bin/wav_to_flac
+vim config/local.yaml
+bin/wav2flac
 ```
 
 ## License

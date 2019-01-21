@@ -29,7 +29,7 @@ module Wav2Flac
 
       def load_config
         %i[defaults local].each_with_object({}) do |file, hash|
-          path = File.join(CONFIG_DIR, "#{file}.yml")
+          path = File.join(CONFIG_DIR, "#{file}.yaml")
           next hash unless File.exist?(path)
 
           hash.deep_merge!(YAML.safe_load(IO.read(path), symbolize_names: true))
