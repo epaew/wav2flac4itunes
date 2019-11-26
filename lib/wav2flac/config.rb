@@ -6,7 +6,7 @@ require 'yaml'
 module Wav2Flac
   class Config
     CONFIG_DIR = File.expand_path('../../config', __dir__).freeze
-    XML_FILENAME = '/iTunes Music Library.xml'
+    XML_FILENAME = '/iTunes Library.xml'
 
     class << self
       def itunes_path
